@@ -1,3 +1,10 @@
+/*
+* Author: Ming Hui
+* Date: 10/6/25
+* Description: Envelope Behaviour script, allows collecting of 
+*/
+
+
 using UnityEngine;
 
 public class EnvelopeBehaviour : MonoBehaviour
@@ -6,22 +13,29 @@ public class EnvelopeBehaviour : MonoBehaviour
     [SerializeField]
     int EnvelopeValue = 1;
 
-    // Method to collect the coin
-    // This method will be called when the player interacts with the coin
+    [SerializeField]
+    AudioClip collectSound;
+
+
+    // Method to collect the envelope
+    // This method will be called when the player interacts with the envelope
     // It takes a PlayerBehaviour object as a parameter
     // This allows the coin to modify the player's score
     // The method is public so it can be accessed from other scripts
     public void Collect(PlayerBehaviour player)
     {
+        AudioSource.PlayClipAtPoint(collectSound, transform.position);
         // Logic for collecting the coin
         Debug.Log("Envelope collected!");
 
-        // Add the coin value to the player's score
+        // Add the envelope value to the player's score
         // This is done by calling the ModifyScore method on the player object
         // The coinValue is passed as an argument to the method
-        // This allows the player to gain points when they collect the coin
+        // This allows the player to gain points when they collect the envelope
         player.ModifyScore(EnvelopeValue);
 
-        Destroy(gameObject); // Destroy the coin object
+        Destroy(gameObject); // Destroy the envelope object
+
     }
+
 }

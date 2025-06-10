@@ -1,8 +1,7 @@
 /*
 * Author: Ming Hui
 * Date: 10/6/25
-* Description: Player behaviour script with raycast detection for Envelope collectibles.
-* Enables highlighting of envelopes and interaction using the "E" key with raycasting.
+* Description: Player behaviour script with collection of envelopes
 */
 
 using UnityEngine;
@@ -44,7 +43,7 @@ public class PlayerBehaviour : MonoBehaviour
             if (currentEnvelope != null)
             {
                 Debug.Log("Interacting with Envelope");
-                // Call the Collect method on the coin object
+                // Call the Collect method on the object
                 // Pass the player object as an argument
                 currentEnvelope.Collect(this);
             }

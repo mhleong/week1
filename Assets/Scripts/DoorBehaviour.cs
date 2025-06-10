@@ -1,3 +1,10 @@
+/*
+* Author: Ming Hui
+* Date: 10/6/25
+* Description: Door Behaviour script, allows opening of door
+*/
+
+
 using UnityEngine;
 
 public class DoorBehaviour : MonoBehaviour
