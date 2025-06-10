@@ -1,3 +1,10 @@
+/*
+* Author: Ming Hui
+* Date: 10/6/25
+* Description: Player behaviour script with raycast detection for Envelope collectibles.
+* Enables highlighting of envelopes and interaction using the "E" key with raycasting.
+*/
+
 using UnityEngine;
 
 public class PlayerBehaviour : MonoBehaviour
