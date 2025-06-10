@@ -11,7 +11,7 @@ public class PlayerBehaviour : MonoBehaviour
     // Flag to check if the player can interact with objects
     bool canInteract = false;
     // Stores the current coin object the player has detected
-    CoinBehaviour currentCoin = null;
+    EnvelopeBehaviour currentEnvelope = null;
     DoorBehaviour currentDoor = null;
 
 
@@ -34,12 +34,12 @@ public class PlayerBehaviour : MonoBehaviour
         if (canInteract)
         {
             // Check if the player has detected a coin or a door
-            if (currentCoin != null)
+            if (currentEnvelope != null)
             {
-                Debug.Log("Interacting with coin");
+                Debug.Log("Interacting with Envelope");
                 // Call the Collect method on the coin object
                 // Pass the player object as an argument
-                currentCoin.Collect(this);
+                currentEnvelope.Collect(this);
             }
 
             else if (currentDoor != null)
@@ -103,7 +103,7 @@ public class PlayerBehaviour : MonoBehaviour
             // Set the canInteract flag to true
             // Get the CoinBehaviour component from the detected object
             canInteract = true;
-            currentCoin = other.GetComponent<CoinBehaviour>();
+            currentEnvelope = other.GetComponent<EnvelopeBehaviour>();
         }
 
         else if (other.CompareTag("Door"))
@@ -117,16 +117,16 @@ public class PlayerBehaviour : MonoBehaviour
     void OnTriggerExit(Collider other)
     {
         // Check if the player has a detected coin or door
-        if (currentCoin != null)
+        if (currentEnvelope != null)
         {
             // If the object that exited the trigger is the same as the current coin
-            if (other.gameObject == currentCoin.gameObject)
+            if (other.gameObject == currentEnvelope.gameObject)
             {
                 // Set the canInteract flag to false
                 // Set the current coin to null
                 // This prevents the player from interacting with the coin
                 canInteract = false;
-                currentCoin = null;
+                currentEnvelope = null;
             }
         }
     }
