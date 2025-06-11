@@ -16,7 +16,7 @@ public class PlayerBehaviour : MonoBehaviour
     int currentScore = 0;
     // Flag to check if the player can interact with objects
     bool canInteract = false;
-    // Stores the current coin object the player has detected
+    // Stores the current object the player has detected
     EnvelopeBehaviour currentEnvelope = null;
     DoorBehaviour currentDoor = null;
 
@@ -30,7 +30,36 @@ public class PlayerBehaviour : MonoBehaviour
     [SerializeField]
     float fireForceStrength;
 
+    [SerializeField] float interactionDistance = 50f;
 
+
+
+void Update()
+    {
+        RaycastHit hitInfo;
+        Debug.DrawRay(spawnPoint.position, spawnPoint.forward * interactionDistance, Color.blue); // Visualize the raycast in the scene view
+        if (Physics.Raycast(spawnPoint.position, spawnPoint.forward, out hitInfo, interactionDistance))
+            if (hitInfo.collider.CompareTag("Collectible"))
+            {
+                if (currentEnvelope != null)
+                {
+                    currentEnvelope.Unhighlight(); // Remove highlight from the previous envelope 
+                }
+
+                currentEnvelope = hitInfo.collider.gameObject.GetComponent<EnvelopeBehaviour>(); // Store the envelope 
+                currentEnvelope.Highlight(); // Highlight the envelope
+
+            }
+        else
+        {
+            if (currentEnvelope != null)
+            {
+                currentEnvelope.Unhighlight(); // Remove highlight if no envelope is hit
+                currentEnvelope = null; // Clear the reference to the highlighted envelope
+            }
+        }
+
+    }
 
     // The Interact callback for the Interact Input Action
     // This method is called when the player presses the interact button
@@ -56,6 +85,9 @@ public class PlayerBehaviour : MonoBehaviour
 
         }
     }
+
+
+
     // Method to modify the player's score
     // This method takes an integer amount as a parameter
     // It adds the amount to the player's current score
@@ -86,18 +118,6 @@ public class PlayerBehaviour : MonoBehaviour
         }
     }
 
-    // Collision Callback for when the player collides with another object
-    void OnCollisionStay(Collision collision)
-    {
-        // Check if the player collides with an object tagged as "HealingArea"
-        // If it does, call the RecoverHealth method on the object
-        // Pass the player object as an argument
-        // This allows the player to recover health when in a healing area
-        if (collision.gameObject.CompareTag("HealingArea"))
-        {
-            collision.gameObject.GetComponent<RecoveryBehaviour>().RecoverHealth(this);
-        }
-    }
 
     // Trigger Callback for when the player enters a trigger collider
     void OnTriggerEnter(Collider other)
