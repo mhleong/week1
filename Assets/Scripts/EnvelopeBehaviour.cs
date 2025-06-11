@@ -1,7 +1,7 @@
 /*
 * Author: Ming Hui
 * Date: 10/6/25
-* Description: Envelope Behaviour script, allows collecting of 
+* Description: Envelope Behaviour script, allows collecting of envelope
 */
 
 
@@ -20,7 +20,7 @@ public class EnvelopeBehaviour : MonoBehaviour
     // Method to collect the envelope
     // This method will be called when the player interacts with the envelope
     // It takes a PlayerBehaviour object as a parameter
-    // This allows the coin to modify the player's score
+    // This allows the envelope to modify the player's score
     // The method is public so it can be accessed from other scripts
     public void Collect(PlayerBehaviour player)
     {

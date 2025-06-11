@@ -47,7 +47,10 @@ void Update()
                 }
 
                 currentEnvelope = hitInfo.collider.gameObject.GetComponent<EnvelopeBehaviour>(); // Store the envelope 
-                currentEnvelope.Highlight(); // Highlight the envelope
+                if (currentEnvelope != null)
+                {
+                    currentEnvelope.Highlight();
+                }
 
             }
         else
@@ -81,6 +84,22 @@ void Update()
             {
                 Debug.Log("Interacting with door");
                 currentDoor.Interact();
+            }
+
+            else
+            {
+                RaycastHit hitInfo;
+                if (Physics.Raycast(spawnPoint.position, spawnPoint.forward, out hitInfo, interactionDistance))
+                {
+                    if (hitInfo.collider.CompareTag("Collectible"))
+                    {
+                        KeyBehaviour key = hitInfo.collider.GetComponent<KeyBehaviour>();
+                        if (key != null)
+                        {
+                            key.Collect(this);
+                        }
+                    }
+                }
             }
 
         }
@@ -140,20 +159,18 @@ void Update()
     }
 
     // Trigger Callback for when the player exits a trigger collider
+    // Trigger Callback for when the player exits a trigger collider
     void OnTriggerExit(Collider other)
     {
-        // Check if the player has a detected coin or door
-        if (currentEnvelope != null)
+        if (currentEnvelope != null && other.gameObject == currentEnvelope.gameObject)
         {
-            // If the object that exited the trigger is the same as the current coin
-            if (other.gameObject == currentEnvelope.gameObject)
-            {
-                // Set the canInteract flag to false
-                // Set the current coin to null
-                // This prevents the player from interacting with the coin
-                canInteract = false;
-                currentEnvelope = null;
-            }
+            canInteract = false;
+            currentEnvelope = null;
+        }
+        else if (currentDoor != null && other.gameObject == currentDoor.gameObject)
+        {
+            canInteract = false;
+            currentDoor = null;
         }
     }
 
