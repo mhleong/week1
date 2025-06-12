@@ -40,11 +40,13 @@ public class PlayerBehaviour : MonoBehaviour
 
     [SerializeField]
     TextMeshProUGUI scoreText;
+    [SerializeField] TextMeshProUGUI healthText;
 
     void Start()
     {
         moveSpeed = defaultSpeed;
         scoreText.text = "SCORE:" + currentScore.ToString();
+        healthText.text = "HEALTH: " + currentHealth;
     }
 
     public void SetMoveSpeed(float multiplier)
@@ -71,7 +73,7 @@ public class PlayerBehaviour : MonoBehaviour
             currentHealth = 0;
             Respawn();
         }
-
+        healthText.text = "HEALTH: " + currentHealth;
     }
 
     void Respawn()
@@ -222,6 +224,7 @@ public class PlayerBehaviour : MonoBehaviour
                 currentHealth = maxHealth;
             }
         }
+        healthText.text = "HEALTH: " + currentHealth;
     }
 
 
