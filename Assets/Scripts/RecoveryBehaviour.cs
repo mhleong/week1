@@ -1,3 +1,12 @@
+/*
+ * Author: Ming Hui
+ * Date: 11/06/2025
+ * Description: Just in case i use this for later 
+ (recover players health if trying to recover aft taking dmg from hazards)
+ */
+
+
+
 using UnityEngine;
 
 public class RecoveryBehaviour : MonoBehaviour

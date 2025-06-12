@@ -1,7 +1,7 @@
 /*
 * Author: Ming Hui
 * Date: 10/6/25
-* Description: Envelope Behaviour script, allows collecting of envelope
+* Description: Envelope Behaviour script, allows collecting of envelopes using raycast on wax seal stmaps with sfx 
 */
 
 
@@ -30,7 +30,7 @@ public class EnvelopeBehaviour : MonoBehaviour
 
         // Add the envelope value to the player's score
         // This is done by calling the ModifyScore method on the player object
-        // The coinValue is passed as an argument to the method
+        // The EnvelopeValue is passed as an argument to the method
         // This allows the player to gain points when they collect the envelope
         player.ModifyScore(EnvelopeValue);
 

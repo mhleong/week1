@@ -18,8 +18,11 @@ public class PlayerBehaviour : MonoBehaviour
     // Flag to check if the player can interact with objects
     bool canInteract = false;
     // Stores the current object the player has detected
-    EnvelopeBehaviour currentEnvelope = null;
-    DoorBehaviour currentDoor = null;
+    private EnvelopeBehaviour currentEnvelope;
+    private GiftBehaviour currentGift;
+    private DoorBehaviour currentDoor;
+    float defaultSpeed = 5f;
+    float moveSpeed;
 
 
     [SerializeField]
@@ -40,7 +43,23 @@ public class PlayerBehaviour : MonoBehaviour
 
     void Start()
     {
+        moveSpeed = defaultSpeed;
         scoreText.text = "SCORE:" + currentScore.ToString();
+    }
+
+    public void SetMoveSpeed(float multiplier)
+    {
+        moveSpeed = defaultSpeed * multiplier;
+    }
+
+    public void ResetMoveSpeed()
+    {
+        moveSpeed = defaultSpeed;
+    }
+
+    public int GetCurrentHealth()
+    {
+        return currentHealth;
     }
 
     public void TakeDamage(int amount)
@@ -53,7 +72,6 @@ public class PlayerBehaviour : MonoBehaviour
             Respawn();
         }
 
-        //UpdateHealthUI();  Call this if hook up the UI 
     }
 
     void Respawn()
@@ -66,31 +84,69 @@ public class PlayerBehaviour : MonoBehaviour
     void Update()
     {
         RaycastHit hitInfo;
-        Debug.DrawRay(spawnPoint.position, spawnPoint.forward * interactionDistance, Color.red); // Visualize the raycast in the scene view
+        Debug.DrawRay(spawnPoint.position, spawnPoint.forward * interactionDistance, Color.red);
+
         if (Physics.Raycast(spawnPoint.position, spawnPoint.forward, out hitInfo, interactionDistance))
-            if (hitInfo.collider.CompareTag("Collectible"))
-            {
-                if (currentEnvelope != null)
-                {
-                    currentEnvelope.Unhighlight(); // Remove highlight from the previous envelope 
-                }
-
-                currentEnvelope = hitInfo.collider.gameObject.GetComponent<EnvelopeBehaviour>(); // Store the envelope 
-                if (currentEnvelope != null)
-                {
-                    currentEnvelope.Highlight();
-                }
-
-            }
-        else
         {
-            if (currentEnvelope != null)
+            GameObject hitObject = hitInfo.collider.gameObject;
+
+            // Check for envelope
+            EnvelopeBehaviour envelope = hitObject.GetComponent<EnvelopeBehaviour>();
+            if (envelope != null)
             {
-                currentEnvelope.Unhighlight(); // Remove highlight if no envelope is hit
-                currentEnvelope = null; // Clear the reference to the highlighted envelope
+                if (currentEnvelope != null && currentEnvelope != envelope)
+                    currentEnvelope.Unhighlight();
+                if (currentGift != null)
+                    currentGift.Unhighlight();
+
+                currentEnvelope = envelope;
+                currentGift = null;
+                envelope.Highlight();
+                return;
+            }
+
+            // Check for gift
+            GiftBehaviour gift = hitObject.GetComponent<GiftBehaviour>();
+            if (gift != null)
+            {
+                if (currentGift != null && currentGift != gift)
+                    currentGift.Unhighlight();
+                if (currentEnvelope != null)
+                    currentEnvelope.Unhighlight();
+
+                currentGift = gift;
+                currentEnvelope = null;
+                gift.Highlight();
+                return;
+            }
+
+            // Check for door
+            DoorBehaviour door = hitObject.GetComponent<DoorBehaviour>();
+            if (door != null)
+            {
+                currentDoor = door;
+            }
+            else
+            {
+                currentDoor = null;
             }
         }
+        else
+        {
+            // Clear highlights if ray hits nothing
+            if (currentEnvelope != null)
+            {
+                currentEnvelope.Unhighlight();
+                currentEnvelope = null;
+            }
+            if (currentGift != null)
+            {
+                currentGift.Unhighlight();
+                currentGift = null;
+            }
 
+            currentDoor = null;
+        }
     }
 
     // The Interact callback for the Interact Input Action
@@ -120,20 +176,21 @@ public class PlayerBehaviour : MonoBehaviour
                 RaycastHit hitInfo;
                 if (Physics.Raycast(spawnPoint.position, spawnPoint.forward, out hitInfo, interactionDistance))
                 {
-                    if (hitInfo.collider.CompareTag("Collectible"))
+                    GameObject obj = hitInfo.collider.gameObject;
+
+                    if (obj.TryGetComponent<KeyBehaviour>(out KeyBehaviour key))
                     {
-                        KeyBehaviour key = hitInfo.collider.GetComponent<KeyBehaviour>();
-                        if (key != null)
-                        {
-                            key.Collect(this);
-                        }
+                        key.Collect(this);
+                    }
+                    else if (obj.TryGetComponent<GiftBehaviour>(out GiftBehaviour gift))
+                    {
+                        gift.Collect(this);
                     }
                 }
             }
 
         }
     }
-
 
 
     // Method to modify the player's score
@@ -176,7 +233,7 @@ public class PlayerBehaviour : MonoBehaviour
         if (other.CompareTag("Collectible"))
         {
             // Set the canInteract flag to true
-            // Get the CoinBehaviour component from the detected object
+            // Get the EnvelopeBehaviour component from the detected object
             canInteract = true;
             currentEnvelope = other.GetComponent<EnvelopeBehaviour>();
         }
@@ -188,7 +245,7 @@ public class PlayerBehaviour : MonoBehaviour
         }
     }
 
-    // Trigger Callback for when the player exits a trigger collider
+ 
     // Trigger Callback for when the player exits a trigger collider
     void OnTriggerExit(Collider other)
     {
