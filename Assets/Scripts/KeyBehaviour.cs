@@ -1,10 +1,10 @@
-using UnityEngine;
-
 /*
  * Author: Ming Hui
  * Date: 11/06/2025
  * Description: Script for collecting keys to unlock doors
  */
+
+using UnityEngine;
 
 public class KeyBehaviour : MonoBehaviour
 {

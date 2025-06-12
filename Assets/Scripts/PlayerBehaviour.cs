@@ -30,14 +30,34 @@ public class PlayerBehaviour : MonoBehaviour
     [SerializeField]
     float fireForceStrength;
 
-    [SerializeField] float interactionDistance = 50f;
+    [SerializeField] float interactionDistance = 5f;
+
+    [SerializeField] Transform respawnPoint;
+
+    public void TakeDamage(int amount)
+    {
+        currentHealth -= amount;
+
+        if (currentHealth <= 0)
+        {
+            currentHealth = 0;
+            Respawn();
+        }
+
+        //UpdateHealthUI();  Call this if hook up the UI 
+    }
+
+    void Respawn()
+    {
+        transform.position = respawnPoint.position;
+        currentHealth = maxHealth;
+    }
 
 
-
-void Update()
+    void Update()
     {
         RaycastHit hitInfo;
-        Debug.DrawRay(spawnPoint.position, spawnPoint.forward * interactionDistance, Color.blue); // Visualize the raycast in the scene view
+        Debug.DrawRay(spawnPoint.position, spawnPoint.forward * interactionDistance, Color.red); // Visualize the raycast in the scene view
         if (Physics.Raycast(spawnPoint.position, spawnPoint.forward, out hitInfo, interactionDistance))
             if (hitInfo.collider.CompareTag("Collectible"))
             {
