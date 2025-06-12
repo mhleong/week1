@@ -5,6 +5,7 @@
 */
 
 using UnityEngine;
+using TMPro;
 
 public class PlayerBehaviour : MonoBehaviour
 {
@@ -33,6 +34,14 @@ public class PlayerBehaviour : MonoBehaviour
     [SerializeField] float interactionDistance = 5f;
 
     [SerializeField] Transform respawnPoint;
+
+    [SerializeField]
+    TextMeshProUGUI scoreText;
+
+    void Start()
+    {
+        scoreText.text = "SCORE:" + currentScore.ToString();
+    }
 
     public void TakeDamage(int amount)
     {
@@ -135,6 +144,7 @@ public class PlayerBehaviour : MonoBehaviour
     {
         // Increase currentScore by the amount passed as an argument
         currentScore += amt;
+        scoreText.text = "SCORE:" + currentScore.ToString();
     }
 
     // Method to modify the player's health

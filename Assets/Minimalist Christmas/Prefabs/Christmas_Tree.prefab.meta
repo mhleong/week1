@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 16c35d0a64930784b95e900d6aa9f8ce
+timeCreated: 1448234785
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 50549
+  packageName: Minimalist Christmas
+  packageVersion: 1.0
+  assetPath: Assets/Minimalist Christmas/Prefabs/Christmas_Tree.prefab
+  uploadId: 91081

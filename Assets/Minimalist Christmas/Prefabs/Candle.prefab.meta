@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 5f8ab9c7ee6dbd043b21535eae1b7a37
+timeCreated: 1448231687
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 50549
+  packageName: Minimalist Christmas
+  packageVersion: 1.0
+  assetPath: Assets/Minimalist Christmas/Prefabs/Candle.prefab
+  uploadId: 91081

@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 24b4c5dc305499e44b4cdfad4149b9b6
+timeCreated: 1448235509
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 50549
+  packageName: Minimalist Christmas
+  packageVersion: 1.0
+  assetPath: Assets/Minimalist Christmas/Prefabs/Gift_Box_1.prefab
+  uploadId: 91081
