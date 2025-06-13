@@ -103,59 +103,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 7f9f6917c2d54844ebb138a193f97e52, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 4680500708641715193}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 7f9f6917c2d54844ebb138a193f97e52, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 7539713667908458779}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7f9f6917c2d54844ebb138a193f97e52, type: 3}
 --- !u!4 &2818816030326636856 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 7f9f6917c2d54844ebb138a193f97e52, type: 3}
   m_PrefabInstance: {fileID: 2347724797887555283}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &3194638259518675842 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 7f9f6917c2d54844ebb138a193f97e52, type: 3}
-  m_PrefabInstance: {fileID: 2347724797887555283}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &4680500708641715193
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3194638259518675842}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d7d0b8e4d3f53af45ac565d74e0ac766, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  damageAmount: 10
-  damageInterval: 1
-  isInstant: 0
-  slowsPlayer: 0
-  slowMultiplier: 0.5
---- !u!65 &7539713667908458779
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3194638259518675842}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.0124642085, y: 0.056210373, z: 0.014846291}
-  m_Center: {x: 0, y: 0, z: 0}

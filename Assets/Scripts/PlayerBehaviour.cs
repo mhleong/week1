@@ -59,6 +59,8 @@ public class PlayerBehaviour : MonoBehaviour
         moveSpeed = defaultSpeed;
     }
 
+    public int CurrentHealth => currentHealth; //for hazards.cs
+
     public int GetCurrentHealth()
     {
         return currentHealth;
@@ -76,7 +78,7 @@ public class PlayerBehaviour : MonoBehaviour
         healthText.text = "HEALTH: " + currentHealth;
     }
 
-    void Respawn()
+    public void Respawn()
     {
         transform.position = respawnPoint.position;
         currentHealth = maxHealth;
