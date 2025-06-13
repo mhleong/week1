@@ -80,8 +80,10 @@ public class PlayerBehaviour : MonoBehaviour
 
     public void Respawn()
     {
+        Hazard.StopAllDOTForPlayer(gameObject); // Stop all ongoing DOT
         transform.position = respawnPoint.position;
         currentHealth = maxHealth;
+        healthText.text = "HEALTH: " + currentHealth;
     }
 
 

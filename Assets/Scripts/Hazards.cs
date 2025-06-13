@@ -21,7 +21,7 @@ public class Hazard : MonoBehaviour
 
     [Header("Falling Hazard Settings")]
     [SerializeField] bool isFallingHazard = false; // Enabled for falling icicles
-    [SerializeField] float triggerRadius = 50f; // How close player must be to trigger fall
+    [SerializeField] float triggerRadius = 15f; // How close player must be to trigger fall
     [SerializeField] float fallDelayMin = 0.1f;
     [SerializeField] float fallDelayMax = 1f;
     [SerializeField] float embedOffsetY = 0f; // How deep into the ground the icicle embeds
@@ -52,6 +52,7 @@ public class Hazard : MonoBehaviour
             {
                 hasFallen = true;
                 float delay = Random.Range(fallDelayMin, fallDelayMax);
+                Debug.Log("Beware of falling icicles");
                 Invoke(nameof(ActivateFall), delay);
             }
         }
@@ -63,23 +64,25 @@ public class Hazard : MonoBehaviour
         if (rb != null)
         {
             rb.isKinematic = false;
-            Debug.Log("Icicles falling, beware!");
         }
     }
 
     // Detect collision for physical hazards like falling icicles
     private void OnCollisionEnter(Collision collision)
     {
+        if (isFallingHazard && rb != null && !rb.isKinematic)
+        {
+            // Always embed once it touches ground or player
+            rb.isKinematic = true;
+
+            Vector3 pos = transform.position;
+            pos.y += embedOffsetY;
+            transform.position = pos;
+        }
+
         if (collision.gameObject.CompareTag("Player"))
         {
             HandleHazardEffects(collision.gameObject);
-            if (isFallingHazard)
-            {
-                rb.isKinematic = true; // Freeze in place
-                Vector3 pos = transform.position;
-                pos.y = pos.y + embedOffsetY;
-                transform.position = pos;
-            }
         }
     }
 
@@ -110,11 +113,6 @@ public class Hazard : MonoBehaviour
                 if (hitSFX)
                 {
                     AudioSource.PlayClipAtPoint(hitSFX, transform.position);
-                }
-
-                if (player.CurrentHealth <= 0)
-                {
-                    player.Respawn();
                 }
             }
         }
@@ -150,9 +148,10 @@ public class Hazard : MonoBehaviour
             {
                 player.TakeDamage(damageAmount);
             }
-            else
+            else if (!activeDOTs.ContainsKey(playerObj))
             {
-                StartCoroutine(DamageOverTime(player));
+                Coroutine dotCoroutine = StartCoroutine(DamageOverTime(player));
+                activeDOTs[playerObj] = dotCoroutine;
             }
 
             if (slowsPlayer)
@@ -164,20 +163,36 @@ public class Hazard : MonoBehaviour
             {
                 AudioSource.PlayClipAtPoint(hitSFX, transform.position);
             }
-
-            if (player.CurrentHealth <= 0)
-            {
-                player.Respawn(); // Custom respawn function from your PlayerBehaviour
-            }
         }
     }
 
     System.Collections.IEnumerator DamageOverTime(PlayerBehaviour player)
     {
+        GameObject playerObj = player.gameObject;
+
         while (player != null && player.CurrentHealth > 0)
         {
             player.TakeDamage(damageAmount);
             yield return new WaitForSeconds(damageInterval);
+        }
+
+        if (activeDOTs.ContainsKey(playerObj))
+        {
+            activeDOTs.Remove(playerObj);
+        }
+    }
+    
+
+    // Called by PlayerBehaviour to clean up DOT when respawning
+    public static void StopAllDOTForPlayer(GameObject player)
+    {
+        foreach (Hazard hazard in FindObjectsByType<Hazard>(FindObjectsSortMode.None))
+        {
+            if (hazard.activeDOTs.ContainsKey(player))
+            {
+                hazard.StopCoroutine(hazard.activeDOTs[player]);
+                hazard.activeDOTs.Remove(player);
+            }
         }
     }
 }
