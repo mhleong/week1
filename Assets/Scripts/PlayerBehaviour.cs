@@ -28,23 +28,23 @@ public class PlayerBehaviour : MonoBehaviour
 
 
     [SerializeField]
-    GameObject projectile;
+    GameObject projectile; //just in case for future usage
 
     [SerializeField]
-    Transform spawnPoint;
+    float fireForceStrength; 
 
     [SerializeField]
-    float fireForceStrength;
+    Transform spawnPoint; //spawn for raycasting
 
     [SerializeField] float interactionDistance = 10f;
 
-    [SerializeField] Transform respawnPoint;
+    [SerializeField] Transform respawnPoint; //for player respawn
 
     [SerializeField]
-    TextMeshProUGUI scoreText;
-    [SerializeField] TextMeshProUGUI healthText;
-    [SerializeField] TextMeshProUGUI envelopeCounterText;
-    [SerializeField] TextMeshProUGUI giftCounterText;
+    TextMeshProUGUI scoreText; //score ui
+    [SerializeField] TextMeshProUGUI healthText; //health ui
+    [SerializeField] TextMeshProUGUI envelopeCounterText; //env ui
+    [SerializeField] TextMeshProUGUI giftCounterText; //gift ui
     [SerializeField] GameObject congratsMessagePanel; // only show this when everything is collected
     [SerializeField] int totalEnvelopes = 5;
     [SerializeField] int totalGifts = 3;
