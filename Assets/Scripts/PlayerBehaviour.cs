@@ -6,6 +6,7 @@
 
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 public class PlayerBehaviour : MonoBehaviour
 {
@@ -47,6 +48,15 @@ public class PlayerBehaviour : MonoBehaviour
     [SerializeField] int totalEnvelopes = 5;
     [SerializeField] int totalGifts = 3;
 
+    [Header("Frost Overlay")] //effect when players hit by icicle/frozen pond
+    public Image overlay;
+    public float duration =2f; //how long it stays
+    public float fadeSpeed = 1f; //how fast it fades in and out
+
+    private float durationTimer = 0f; //timer to check against the duration
+
+
+
     int collectedEnvelopes = 0;
     int collectedGifts = 0;
 
@@ -55,6 +65,7 @@ public class PlayerBehaviour : MonoBehaviour
     void Start()
     {
         moveSpeed = defaultSpeed;
+        overlay.color = new Color(overlay.color.r, overlay.color.g, overlay.color.b, 0f);
         scoreText.text = "SCORE:" + currentScore.ToString();
         healthText.text = "HEALTH: " + currentHealth;
         envelopeCounterText.text = "0/" + totalEnvelopes;
@@ -90,6 +101,16 @@ public class PlayerBehaviour : MonoBehaviour
             Respawn();
         }
         healthText.text = "HEALTH: " + currentHealth;
+
+
+    }
+
+
+    /// Triggers the frost overlay effect (used only for icy hazards).
+    public void TriggerFrostOverlay()
+    {
+        durationTimer = 0f; //reset timer
+        overlay.color = new Color(overlay.color.r, overlay.color.g, overlay.color.b, 1f);
     }
 
     public void Respawn()
@@ -166,6 +187,23 @@ public class PlayerBehaviour : MonoBehaviour
             }
 
             currentDoor = null;
+        }
+
+        // Frost overlay fade logic
+        if (overlay.color.a > 0f)
+        {
+            durationTimer += Time.deltaTime;
+
+            float alpha = overlay.color.a;
+
+            if (durationTimer <= duration)
+            {
+                // Wait before fading
+                return;
+            }
+
+            alpha -= Time.deltaTime * fadeSpeed;
+            overlay.color = new Color(overlay.color.r, overlay.color.g, overlay.color.b, Mathf.Max(0f, alpha));
         }
     }
 

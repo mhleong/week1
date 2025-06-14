@@ -15,6 +15,7 @@ public class Hazard : MonoBehaviour
     [SerializeField] float damageInterval = 1f; // Time between damage ticks (DOT)
     [SerializeField] bool isInstant = false; //istant dmg 
     [SerializeField] bool slowsPlayer = false; //for frozen pond
+    [SerializeField] public bool isIcyHazard = false;
     [SerializeField] float slowMultiplier = 0.5f; //frozen pond
     [SerializeField] AudioClip hitSFX;
 
@@ -100,6 +101,7 @@ public class Hazard : MonoBehaviour
                 {
                     player.TakeDamage(damageAmount);
                 }
+
                 else if (!activeDOTs.ContainsKey(other.gameObject))
                 {
                     Coroutine dotCoroutine = StartCoroutine(DamageOverTime(player));
@@ -109,6 +111,12 @@ public class Hazard : MonoBehaviour
                 if (slowsPlayer)
                 {
                     player.SetMoveSpeed(slowMultiplier);
+                }
+
+                // Trigger frost overlay if this hazard is icy
+                if (isIcyHazard)
+                {
+                    player.TriggerFrostOverlay();
                 }
 
                 if (hitSFX)
