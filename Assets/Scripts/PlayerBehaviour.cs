@@ -7,6 +7,7 @@
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using System.Collections;
 
 public class PlayerBehaviour : MonoBehaviour
 {
@@ -61,6 +62,31 @@ public class PlayerBehaviour : MonoBehaviour
     int collectedGifts = 0;
 
 
+    /// UI panel shown when door is locked and key is needed
+    public GameObject doorMessageUI;
+
+
+    /// Time to show the door locked msg
+    public float doorMessageDuration = 2.5f;
+
+    private Coroutine doorMessageCoroutine;
+
+    // Call this when player tries a locked door without key
+    public void ShowDoorLockedMessage()
+    {
+        if (doorMessageCoroutine != null)
+            StopCoroutine(doorMessageCoroutine);
+
+        doorMessageCoroutine = StartCoroutine(DisplayDoorMessage());
+    }
+
+    private IEnumerator DisplayDoorMessage()
+    {
+        doorMessageUI.SetActive(true);
+        yield return new WaitForSeconds(doorMessageDuration);
+        doorMessageUI.SetActive(false);
+    }
+
 
     void Start()
     {
@@ -70,8 +96,12 @@ public class PlayerBehaviour : MonoBehaviour
         healthText.text = "HEALTH: " + currentHealth;
         envelopeCounterText.text = "0/" + totalEnvelopes;
         giftCounterText.text = "0/" + totalGifts;
+
+        if (doorMessageUI != null)
+        doorMessageUI.SetActive(false);
+
         if (congratsMessagePanel != null)
-        congratsMessagePanel.SetActive(false);
+            congratsMessagePanel.SetActive(false);
     }
 
     public void SetMoveSpeed(float multiplier)
@@ -226,7 +256,7 @@ public class PlayerBehaviour : MonoBehaviour
             else if (currentDoor != null)
             {
                 Debug.Log("Interacting with door");
-                currentDoor.Interact();
+                currentDoor.Interact(this);
             }
 
             else
@@ -326,7 +356,7 @@ public class PlayerBehaviour : MonoBehaviour
         }
     }
 
- 
+
     // Trigger Callback for when the player exits a trigger collider
     void OnTriggerExit(Collider other)
     {
@@ -358,6 +388,7 @@ public class PlayerBehaviour : MonoBehaviour
         // Add a force to the projectile defined by the fireforce variable
         newProjectile.GetComponent<Rigidbody>().AddForce(fireForce);
     }
-
 }
+
+
 

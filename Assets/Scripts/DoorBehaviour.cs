@@ -58,7 +58,7 @@ public class DoorBehaviour : MonoBehaviour
 
 
     // Interact method called when player presses Interact button
-    public void Interact()
+    public void Interact(PlayerBehaviour player)
     {
 
         if (isLocked)
@@ -71,6 +71,9 @@ public class DoorBehaviour : MonoBehaviour
             else
             {
                 Debug.Log("Door is locked! Find the key!");
+                player.ShowDoorLockedMessage();
+                return;
+
             }
         }
         else
