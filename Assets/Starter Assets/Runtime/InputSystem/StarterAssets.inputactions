@@ -44,20 +44,11 @@
                 {
                     "name": "Interact",
                     "type": "Button",
-                    "id": "ebc3c609-0350-4df5-8843-237797040258",
+                    "id": "15cc6abe-284a-4300-a15b-a9b398583a47",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
-                },
-                {
-                    "name": "Fire",
-                    "type": "Button",
-                    "id": "f1bf9981-3c16-4737-9001-6ca1fa61ae91",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": true
                 }
             ],
             "bindings": [
@@ -239,8 +230,8 @@
                 },
                 {
                     "name": "",
-                    "id": "c51ff0eb-f23b-425d-8828-087043e17288",
-                    "path": "<Keyboard>/e",
+                    "id": "f7791fea-4c1d-4790-8f46-92a5df049688",
+                    "path": "",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -250,12 +241,12 @@
                 },
                 {
                     "name": "",
-                    "id": "969d19e3-bcb0-4fb4-9f59-89fe9981c295",
-                    "path": "<Keyboard>/f",
-                    "interactions": "Tap",
+                    "id": "9625a120-df47-4f14-90f0-17d0792a82c4",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
                     "processors": "",
                     "groups": ";KeyboardMouse",
-                    "action": "Fire",
+                    "action": "Interact",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

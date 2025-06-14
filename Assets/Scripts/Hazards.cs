@@ -64,6 +64,7 @@ public class Hazard : MonoBehaviour
         if (rb != null)
         {
             rb.isKinematic = false;
+            rb.AddForce(Vector3.down * 200f, ForceMode.Impulse); //make icicle fall faster
         }
     }
 

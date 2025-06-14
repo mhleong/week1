@@ -34,7 +34,7 @@ public class PlayerBehaviour : MonoBehaviour
     [SerializeField]
     float fireForceStrength;
 
-    [SerializeField] float interactionDistance = 5f;
+    [SerializeField] float interactionDistance = 10f;
 
     [SerializeField] Transform respawnPoint;
 

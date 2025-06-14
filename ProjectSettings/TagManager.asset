@@ -9,6 +9,7 @@ TagManager:
   - HealingArea
   - Collectible
   - Door
+  - Ground
   layers:
   - Default
   - TransparentFX
