@@ -15,6 +15,7 @@ public class DoorBehaviour : MonoBehaviour
     // Flag to determine if the door is locked
     [SerializeField]
     bool isLocked = true;
+    [SerializeField] private bool isFinalDoor = false;
 
     [SerializeField] AudioClip doorSound;
 
@@ -27,8 +28,8 @@ public class DoorBehaviour : MonoBehaviour
     float closeDistance = 3f;
 
     // Reference to the player transform
-    Transform playerTransform;
-    bool playerWasInside = false;
+    private Transform playerTransform;
+    private bool playerWasInside = false;
 
 
     void Start()
@@ -59,6 +60,7 @@ public class DoorBehaviour : MonoBehaviour
     // Interact method called when player presses Interact button
     public void Interact()
     {
+
         if (isLocked)
         {
             if (playerInventory != null && playerInventory.HasKey)

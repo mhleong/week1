@@ -16,6 +16,7 @@ public class GiftBehaviour : MonoBehaviour
         AudioSource.PlayClipAtPoint(collectSound, transform.position);
         Debug.Log("Gift collected!");
         player.ModifyScore(giftValue);
+        player.CollectGift();
         Destroy(gameObject);
     }
 

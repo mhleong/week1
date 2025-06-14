@@ -27,6 +27,7 @@ public class EnvelopeBehaviour : MonoBehaviour
         AudioSource.PlayClipAtPoint(collectSound, transform.position);
         // Logic for collecting the coin
         Debug.Log("Envelope collected!");
+        player.CollectEnvelope();
 
         // Add the envelope value to the player's score
         // This is done by calling the ModifyScore method on the player object

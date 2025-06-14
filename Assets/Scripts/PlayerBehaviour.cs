@@ -41,12 +41,26 @@ public class PlayerBehaviour : MonoBehaviour
     [SerializeField]
     TextMeshProUGUI scoreText;
     [SerializeField] TextMeshProUGUI healthText;
+    [SerializeField] TextMeshProUGUI envelopeCounterText;
+    [SerializeField] TextMeshProUGUI giftCounterText;
+    [SerializeField] GameObject congratsMessagePanel; // only show this when everything is collected
+    [SerializeField] int totalEnvelopes = 5;
+    [SerializeField] int totalGifts = 3;
+
+    int collectedEnvelopes = 0;
+    int collectedGifts = 0;
+
+
 
     void Start()
     {
         moveSpeed = defaultSpeed;
         scoreText.text = "SCORE:" + currentScore.ToString();
         healthText.text = "HEALTH: " + currentHealth;
+        envelopeCounterText.text = "0/" + totalEnvelopes;
+        giftCounterText.text = "0/" + totalGifts;
+        if (congratsMessagePanel != null)
+        congratsMessagePanel.SetActive(false);
     }
 
     public void SetMoveSpeed(float multiplier)
@@ -231,7 +245,29 @@ public class PlayerBehaviour : MonoBehaviour
         healthText.text = "HEALTH: " + currentHealth;
     }
 
+    //UI trackingfor envelope + gifts
+    public void CollectEnvelope()
+    {
+        collectedEnvelopes++;
+        envelopeCounterText.text = collectedEnvelopes + "/" + totalEnvelopes;
+        CheckAllCollected();
+    }
 
+    public void CollectGift()
+    {
+        collectedGifts++;
+        giftCounterText.text = collectedGifts + "/" + totalGifts;
+        CheckAllCollected();
+    }
+
+    void CheckAllCollected()
+    {
+        if (collectedEnvelopes >= totalEnvelopes && collectedGifts >= totalGifts)
+        {
+            if (congratsMessagePanel != null)
+                congratsMessagePanel.SetActive(true);
+        }
+    }
     // Trigger Callback for when the player enters a trigger collider
     void OnTriggerEnter(Collider other)
     {
