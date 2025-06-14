@@ -5336,7 +5336,7 @@ MonoBehaviour:
   healthText: {fileID: 21722645}
   envelopeCounterText: {fileID: 2009284747}
   giftCounterText: {fileID: 971257746}
-  congratsMessagePanel: {fileID: 0}
+  congratsMessagePanel: {fileID: 1069712124}
   totalEnvelopes: 20
   totalGifts: 10
   overlay: {fileID: 16199710}
@@ -7574,7 +7574,7 @@ GameObject:
   - component: {fileID: 402154506}
   m_Layer: 0
   m_Name: Final Door
-  m_TagString: FinalDoor
+  m_TagString: Door
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -19045,7 +19045,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 5.9911, y: 95.418}
+  m_AnchoredPosition: {x: 5.9911, y: 115}
   m_SizeDelta: {x: 1270.8354, y: 1270.8354}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1069712126
@@ -29364,7 +29364,7 @@ GameObject:
   - component: {fileID: 1562342582}
   m_Layer: 0
   m_Name: Door
-  m_TagString: FinalDoor
+  m_TagString: Door
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

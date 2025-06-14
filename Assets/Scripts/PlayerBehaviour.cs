@@ -46,10 +46,11 @@ public class PlayerBehaviour : MonoBehaviour
     [SerializeField] TextMeshProUGUI envelopeCounterText; //env ui
     [SerializeField] TextMeshProUGUI giftCounterText; //gift ui
     [SerializeField] GameObject congratsMessagePanel; // only show this when everything is collected
-    [SerializeField] int totalEnvelopes = 5;
-    [SerializeField] int totalGifts = 3;
+    [SerializeField] int totalEnvelopes = 20;
+    [SerializeField] int totalGifts = 10;
 
-    [Header("Frost Overlay")] //effect when players hit by icicle/frozen pond
+
+    [Header("Frost Overlay")] //effect when players hit by icicle/frozen pond/ice puddle
     public Image overlay;
     public float duration =2f; //how long it stays
     public float fadeSpeed = 1f; //how fast it fades in and out
@@ -57,7 +58,7 @@ public class PlayerBehaviour : MonoBehaviour
     private float durationTimer = 0f; //timer to check against the duration
 
 
-
+    //for no. of collectibles left and congrats UI
     int collectedEnvelopes = 0;
     int collectedGifts = 0;
 
@@ -94,14 +95,26 @@ public class PlayerBehaviour : MonoBehaviour
         overlay.color = new Color(overlay.color.r, overlay.color.g, overlay.color.b, 0f);
         scoreText.text = "SCORE:" + currentScore.ToString();
         healthText.text = "HEALTH: " + currentHealth;
+
+        // Auto-detect collectibles
+        totalEnvelopes = FindObjectsByType<EnvelopeBehaviour>(FindObjectsSortMode.None).Length;
+        totalGifts = FindObjectsByType<GiftBehaviour>(FindObjectsSortMode.None).Length;
         envelopeCounterText.text = "0/" + totalEnvelopes;
         giftCounterText.text = "0/" + totalGifts;
 
         if (doorMessageUI != null)
-        doorMessageUI.SetActive(false);
+            doorMessageUI.SetActive(false);
 
         if (congratsMessagePanel != null)
+        {
+            Debug.Log("Hiding Congrats!");
             congratsMessagePanel.SetActive(false);
+        }
+        else
+        {
+            Debug.LogWarning("Congrats image not assigned!");
+        }
+    
     }
 
     public void SetMoveSpeed(float multiplier)
@@ -219,7 +232,7 @@ public class PlayerBehaviour : MonoBehaviour
             currentDoor = null;
         }
 
-        // Frost overlay fade logic
+        // Frost overlay fade logic for icy hazards
         if (overlay.color.a > 0f)
         {
             durationTimer += Time.deltaTime;
