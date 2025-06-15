@@ -25,6 +25,7 @@ public class PlayerBehaviour : MonoBehaviour
     // Stores the current object the player has detected
     private EnvelopeBehaviour currentEnvelope;
     private GiftBehaviour currentGift;
+    private KeyBehaviour currentKey;
     private DoorBehaviour currentDoor;
     float defaultSpeed = 5f;
     float moveSpeed;
@@ -208,6 +209,25 @@ public class PlayerBehaviour : MonoBehaviour
                 return;
             }
 
+            // Check for key
+            KeyBehaviour key = hitObject.GetComponent<KeyBehaviour>();
+            if (key != null)
+            {
+                if (currentKey != null && currentKey != key)
+                    currentKey.Unhighlight();
+                if (currentEnvelope != null)
+                    currentEnvelope.Unhighlight();
+                if (currentGift != null)
+                    currentGift.Unhighlight();
+
+                currentKey = key;
+                currentEnvelope = null;
+                currentGift = null;
+                key.Highlight();
+                return;
+            }
+
+
             // Check for door
             DoorBehaviour door = hitObject.GetComponent<DoorBehaviour>();
             if (door != null)
@@ -231,6 +251,12 @@ public class PlayerBehaviour : MonoBehaviour
             {
                 currentGift.Unhighlight();
                 currentGift = null;
+            }
+
+            if (currentKey != null)
+            {
+                currentKey.Unhighlight();
+                currentKey = null;
             }
 
             currentDoor = null;
@@ -268,6 +294,18 @@ public class PlayerBehaviour : MonoBehaviour
                 // Call the Collect method on the object
                 // Pass the player object as an argument
                 currentEnvelope.Collect(this);
+            }
+
+            else if (currentGift != null)
+            {
+                Debug.Log("Interacting with Gift");
+                currentGift.Collect(this);
+            }
+            
+            else if (currentKey != null)
+            {
+                Debug.Log("Interacting with Key");
+                currentKey.Collect(this);
             }
 
             else if (currentDoor != null)
