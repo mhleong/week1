@@ -1,7 +1,10 @@
 /*
 * Author: Ming Hui
 * Date: 10/6/25
-* Description: Player behaviour script with collection of envelopes
+* Description: Player behaviour script with collection of envelopes 
+* Handles player movement, interaction with game objects (collectibles, doors, keys),
+* health management, damage from hazards, UI updates (score, health, messages),
+* and triggers special effects like the frost overlay when taking damage from icy hazards
 */
 
 using UnityEngine;
@@ -46,6 +49,7 @@ public class PlayerBehaviour : MonoBehaviour
     [SerializeField] TextMeshProUGUI envelopeCounterText; //env ui
     [SerializeField] TextMeshProUGUI giftCounterText; //gift ui
     [SerializeField] GameObject congratsMessagePanel; // only show this when everything is collected
+    [SerializeField] AudioClip congratsSound;
     [SerializeField] int totalEnvelopes = 20;
     [SerializeField] int totalGifts = 10;
 
@@ -346,7 +350,10 @@ public class PlayerBehaviour : MonoBehaviour
         if (collectedEnvelopes >= totalEnvelopes && collectedGifts >= totalGifts)
         {
             if (congratsMessagePanel != null)
+            {
                 congratsMessagePanel.SetActive(true);
+                AudioSource.PlayClipAtPoint(congratsSound, transform.position);
+            }
         }
     }
     // Trigger Callback for when the player enters a trigger collider
