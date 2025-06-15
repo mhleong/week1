@@ -9,7 +9,7 @@ using UnityEngine;
 public class GiftBehaviour : MonoBehaviour
 {
     [SerializeField] int giftValue = 5;
-    [SerializeField] AudioClip collectSound;
+    [SerializeField] AudioClip collectSound; 
 
     public void Collect(PlayerBehaviour player)
     {

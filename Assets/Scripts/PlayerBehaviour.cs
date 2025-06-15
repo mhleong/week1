@@ -22,11 +22,13 @@ public class PlayerBehaviour : MonoBehaviour
     int currentScore = 0;
     // Flag to check if the player can interact with objects
     bool canInteract = false;
-    // Stores the current object the player has detected
+
+    // Stores the current objects the player has detected
     private EnvelopeBehaviour currentEnvelope;
     private GiftBehaviour currentGift;
     private KeyBehaviour currentKey;
     private DoorBehaviour currentDoor;
+    //player default n current speed
     float defaultSpeed = 5f;
     float moveSpeed;
 
@@ -44,14 +46,13 @@ public class PlayerBehaviour : MonoBehaviour
 
     [SerializeField] Transform respawnPoint; //for player respawn
 
-    [SerializeField]
-    TextMeshProUGUI scoreText; //score ui
+    [SerializeField] TextMeshProUGUI scoreText; //score ui
     [SerializeField] TextMeshProUGUI healthText; //health ui
     [SerializeField] TextMeshProUGUI envelopeCounterText; //env ui
     [SerializeField] TextMeshProUGUI giftCounterText; //gift ui
-    [SerializeField] GameObject congratsMessagePanel; // only show this when everything is collected
+    [SerializeField] GameObject congratsMessagePanel; // only show congrats UI when everything is collected
     [SerializeField] AudioClip congratsSound;
-    [SerializeField] int totalEnvelopes = 20;
+    [SerializeField] int totalEnvelopes = 20; //number of envelopes + gifts
     [SerializeField] int totalGifts = 10;
 
 
@@ -431,7 +432,7 @@ public class PlayerBehaviour : MonoBehaviour
     }
 
 
-    void OnFire()
+    void OnFire() 
     {
         // Instantiate a new projectile at the spawn point's position and rotation
         //Store the spawned projectile to the 'newProjectile' variable

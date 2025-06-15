@@ -17,13 +17,13 @@ public class Hazard : MonoBehaviour
     [SerializeField] bool slowsPlayer = false; //for frozen pond
     [SerializeField] public bool isIcyHazard = false;
     [SerializeField] float slowMultiplier = 0.5f; //frozen pond
-    [SerializeField] AudioClip hitSFX;
+    [SerializeField] AudioClip hitSFX; //hazards sfx
 
 
     [Header("Falling Hazard Settings")]
     [SerializeField] bool isFallingHazard = false; // Enabled for falling icicles
     [SerializeField] float triggerRadius = 15f; // How close player must be to trigger fall
-    [SerializeField] float fallDelayMin = 0.1f;
+    [SerializeField] float fallDelayMin = 0.1f; //duration for icicles to fall
     [SerializeField] float fallDelayMax = 1f;
     [SerializeField] float embedOffsetY = 0f; // How deep into the ground the icicle embeds
 
@@ -127,7 +127,7 @@ public class Hazard : MonoBehaviour
         }
     }
 
-    private void OnTriggerExit(Collider other)
+    private void OnTriggerExit(Collider other) 
     {
         if (other.CompareTag("Player"))
         {

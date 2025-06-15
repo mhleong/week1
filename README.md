@@ -43,6 +43,7 @@ application:
 * key (maya)
 * icicles (maya)
 * envelopes (maya)
+<<<<<<< Updated upstream
 * UI sprites: (adobe illustrator)
  
 
@@ -50,3 +51,6 @@ application:
 
 • Include the answers on how to solve your game puzzles if any
 * nil ( just help out Olaf, drunk santa and poor Rudolph to collect the scattered items from a merry crisis )
+=======
+* UI sprites: (adobe illustrator)
+>>>>>>> Stashed changes
